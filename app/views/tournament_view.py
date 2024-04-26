@@ -167,7 +167,7 @@ class TournamentView(QWidget):
             tabla_grupo.setItem(fila, 0, QTableWidgetItem(nombre))
 
             # Crear un objeto Team y guardar los datos en el archivo CSV
-            equipo = Team(nombre, resistencia, fuerza, velocidad, self.lista_precision.currentText(), grupo)
+            equipo = Team(nombre, resistencia, fuerza, velocidad, self.lista_precision.currentText(), grupo, pj=0, pg=0, pe=0, pp=0, ga=0, ge=0, puntos=0)
             equipo.guardar_datos_csv()
         else:
             QMessageBox.warning(self, "Límite de equipos", "Ya hay 4 equipos en el grupo {}.".format(grupo))
