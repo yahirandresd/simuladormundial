@@ -4,7 +4,10 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButto
     QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
-from app.model.team import Team
+from app.model.match import Match  # Importamos la clase Match del archivo match.py
+from app.model.team import Team  # Importamos la clase Team del archivo team.py
+from PyQt5.QtWidgets import QInputDialog
+
 
 
 class TournamentView(QWidget):
@@ -30,14 +33,10 @@ class TournamentView(QWidget):
         self.fuerza.setFont(font)
         self.velocidad.setFont(font)
 
-        # Lista desplegable para precisión, criterio y grupo
+        # Lista desplegable para precisión y grupo
         self.lista_precision = QComboBox()
         self.lista_precision.addItems(["Alto", "Medio", "Bajo"])
         self.lista_precision.setFont(font)
-
-        self.lista_criterio = QComboBox()
-        self.lista_criterio.addItems(["Resistencia", "Velocidad", "Fuerza", "Precisión"])
-        self.lista_criterio.setFont(font)
 
         self.lista_grupo = QComboBox()
         self.lista_grupo.addItems(["Grupo A", "Grupo B", "Grupo C", "Grupo D",
@@ -66,7 +65,7 @@ class TournamentView(QWidget):
         self.tab_widget = QTabWidget()
         self.tab_widget.setFont(font)
 
-        #Widget Izquierdo
+        # Widget Izquierdo
         layout_left = QVBoxLayout()
         # Widget para mostrar info y TabWidget a la derecha
         layout_right = QVBoxLayout()
@@ -83,30 +82,26 @@ class TournamentView(QWidget):
         layout.addWidget(self.velocidad)
         layout.addWidget(QLabel("Precisión:", font=font))
         layout.addWidget(self.lista_precision)
-        layout_right.addWidget(QLabel("Criterio:", font=font))
-        layout_right.addWidget(self.lista_criterio)
         layout.addWidget(QLabel("Grupo:", font=font))
         layout.addWidget(self.lista_grupo)
 
         layout.addStretch()
 
-        #Botones
+        # Botones
         botones_layout = QHBoxLayout()
         botones_layout.addWidget(self.boton_cargar)
         botones_layout.addWidget(self.boton_ingresar)
 
-
-        #Organizar widgets a la izquierda
+        # Organizar widgets a la izquierda
         layout_left.addLayout(layout)
         layout_left.addLayout(botones_layout)
 
-
-        #Boton de Simula Fecha
+        # Boton de Simula Fecha
         layout_right.addWidget(self.boton_simular_fecha)
         layout_right.addWidget(self.info_texto)
         layout_right.addWidget(self.tab_widget)
 
-        #Organizar en la ventana principal
+        # Organizar en la ventana principal
         main_layout = QHBoxLayout()
         main_layout.addLayout(layout_left)
         main_layout.addLayout(layout_right)
@@ -173,6 +168,10 @@ class TournamentView(QWidget):
             QMessageBox.warning(self, "Límite de equipos", "Ya hay 4 equipos en el grupo {}.".format(grupo))
 
     def simular_fecha(self):
-        # Aquí puedes agregar la lógica para simular una fecha
-        pass
-
+        # Mostrar el ComboBox de criterio cuando se hace clic en el botón "Simular Fecha"
+        opciones_criterio = ["Resistencia", "Velocidad", "Fuerza", "Precisión"]
+        criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio)
+        
+        if ok:
+            # Aquí puedes realizar acciones adicionales relacionadas con la simulación de la fecha usando el criterio seleccionado
+            print("Se seleccionó el criterio:", criterio)
