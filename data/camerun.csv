@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Antonio Conceição,60,1.75,70,3000000,Entrenador,-
-André Onana,25,190,90,7000000,Portero,0
-Joël Matip,30,195,90,5000000,Defensa,2
-Eric Maxim Choupo-Moting,32,190,80,4000000,Delantero,7
-Jean-Charles Castelletto,26,186,83,2000000,Defensa,1
-Karl Toko Ekambi,29,183,75,6000000,Delantero,6
-André-Frank Zambo Anguissa,26,187,82,5000000,Mediocampista,4
-Nicolas Nkoulou,32,183,75,3000000,Defensa,2
-Stéphane Bahoken,29,185,79,4000000,Delantero,5
-Pierre Kunde Malong,27,179,73,3000000,Mediocampista,3
-Clinton N'Jie,28,175,67,3500000,Delantero,4
-Karl-Heinz Nkoudou,26,176,72,2500000,Delantero,3
-Franck Zambo Anguissa,26,182,78,4000000,Mediocampista,2
-Michael Ngadeu-Ngadjui,31,190,85,2500000,Defensa,1
-Vincent Aboubakar,29,182,80,4500000,Delantero,8
-Clinton N'Jie,28,175,67,3500000,Delantero,4
-Georges Mandjeck,32,186,84,3000000,Mediocampista,2
-Christian Bassogog,25,182,74,5000000,Delantero,7
-Camille Mokam,26,185,80,2000000,Defensa,1
+nombre;edad;altura;peso;salario;posicion;goles
+Antonio Conceição;60;1.75;70;3000000;Entrenador;-
+André Onana;25;190;90;7000000;Portero;0
+Joël Matip;30;195;90;5000000;Defensa;2
+Eric Maxim Choupo-Moting;32;190;80;4000000;Delantero;7
+Jean-Charles Castelletto;26;186;83;2000000;Defensa;1
+Karl Toko Ekambi;29;183;75;6000000;Delantero;6
+André-Frank Zambo Anguissa;26;187;82;5000000;Mediocampista;4
+Nicolas Nkoulou;32;183;75;3000000;Defensa;2
+Stéphane Bahoken;29;185;79;4000000;Delantero;5
+Pierre Kunde Malong;27;179;73;3000000;Mediocampista;3
+Clinton N'Jie;28;175;67;3500000;Delantero;4
+Karl-Heinz Nkoudou;26;176;72;2500000;Delantero;3
+Franck Zambo Anguissa;26;182;78;4000000;Mediocampista;2
+Michael Ngadeu-Ngadjui;31;190;85;2500000;Defensa;1
+Vincent Aboubakar;29;182;80;4500000;Delantero;8
+Clinton N'Jie;28;175;67;3500000;Delantero;4
+Georges Mandjeck;32;186;84;3000000;Mediocampista;2
+Christian Bassogog;25;182;74;5000000;Delantero;7
+Camille Mokam;26;185;80;2000000;Defensa;1

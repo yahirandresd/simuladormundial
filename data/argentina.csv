@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Lionel Scaloni,42,1.78,67,2000000,Entrenador,-
-Lionel Messi,35,170,72,60000000,Delantero,20
-Emiliano Martínez,30,194,90,10000000,Portero,0
-Rodrigo De Paul,28,184,78,15000000,Mediocampista,6
-Nicolás Otamendi,34,183,81,8000000,Defensa,2
-Ángel Di María,34,180,75,12000000,Delantero,10
-Giovani Lo Celso,26,177,73,9000000,Mediocampista,4
-Juan Musso,28,192,84,7000000,Portero,0
-Cristian Romero,24,187,82,14000000,Defensa,3
-Paulo Dybala,28,177,75,11000000,Delantero,8
-Leandro Paredes,28,180,75,10000000,Mediocampista,7
-Lautaro Martínez,25,174,75,14000000,Delantero,12
-Ángel Correa,27,171,70,8000000,Delantero,9
-Nahuel Molina,24,179,72,5000000,Defensa,1
-Gonzalo Montiel,25,179,75,6000000,Defensa,2
-Nicolas Tagliafico,29,171,72,7000000,Defensa,1
-Germán Pezzella,30,187,85,6000000,Defensa,1
-Giovanni Simeone,26,182,78,8000000,Delantero,6
-Ezequiel Palacios,24,178,74,5000000,Mediocampista,3
+nombre;edad;altura;peso;salario;posicion;goles
+Lionel Scaloni;42;1.78;67;2000000;Entrenador;-
+Lionel Messi;35;170;72;60000000;Delantero;20
+Emiliano Martínez;30;194;90;10000000;Portero;0
+Rodrigo De Paul;28;184;78;15000000;Mediocampista;6
+Nicolás Otamendi;34;183;81;8000000;Defensa;2
+Ángel Di María;34;180;75;12000000;Delantero;10
+Giovani Lo Celso;26;177;73;9000000;Mediocampista;4
+Juan Musso;28;192;84;7000000;Portero;0
+Cristian Romero;24;187;82;14000000;Defensa;3
+Paulo Dybala;28;177;75;11000000;Delantero;8
+Leandro Paredes;28;180;75;10000000;Mediocampista;7
+Lautaro Martínez;25;174;75;14000000;Delantero;12
+Ángel Correa;27;171;70;8000000;Delantero;9
+Nahuel Molina;24;179;72;5000000;Defensa;1
+Gonzalo Montiel;25;179;75;6000000;Defensa;2
+Nicolas Tagliafico;29;171;72;7000000;Defensa;1
+Germán Pezzella;30;187;85;6000000;Defensa;1
+Giovanni Simeone;26;182;78;8000000;Delantero;6
+Ezequiel Palacios;24;178;74;5000000;Mediocampista;3

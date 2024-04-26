@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-James Rodríguez,30,180,78,5000000,Mediocampista,10
-Radamel Falcao,35,177,80,4500000,Delantero,8
-David Ospina,33,183,80,4000000,Portero,0
-Juan Cuadrado,33,178,75,4800000,Delantero,5
-Duván Zapata,30,187,85,5200000,Delantero,7
-Wilmar Barrios,28,179,76,3500000,Mediocampista,2
-Yerry Mina,27,195,90,4200000,Defensa,1
-Stefan Medina,29,182,76,3800000,Defensa,1
-Mateus Uribe,31,182,79,4500000,Mediocampista,3
-Luis Muriel,31,178,74,4700000,Delantero,6
-Santiago Arias,29,177,73,3900000,Defensa,0
-Jefferson Lerma,27,181,78,4200000,Mediocampista,2
-Alfredo Morelos,25,182,75,4400000,Delantero,4
-Juan Camilo Hernández,22,183,77,4000000,Delantero,3
-Luis Díaz,25,179,72,4600000,Delantero,5
-Dávinson Sánchez,25,187,82,4300000,Defensa,1
-William Tesillo,31,180,80,3800000,Defensa,0
-Juan Fernando Quintero,29,170,68,4700000,Mediocampista,2
-Richar Rios,22,1.80,70,250000,Mediocampista,4
+nombre;edad;altura;peso;salario;posicion;goles
+James Rodríguez;30;180;78;5000000;Mediocampista;10
+Radamel Falcao;35;177;80;4500000;Delantero;8
+David Ospina;33;183;80;4000000;Portero;0
+Juan Cuadrado;33;178;75;4800000;Delantero;5
+Duván Zapata;30;187;85;5200000;Delantero;7
+Wilmar Barrios;28;179;76;3500000;Mediocampista;2
+Yerry Mina;27;195;90;4200000;Defensa;1
+Stefan Medina;29;182;76;3800000;Defensa;1
+Mateus Uribe;31;182;79;4500000;Mediocampista;3
+Luis Muriel;31;178;74;4700000;Delantero;6
+Santiago Arias;29;177;73;3900000;Defensa;0
+Jefferson Lerma;27;181;78;4200000;Mediocampista;2
+Alfredo Morelos;25;182;75;4400000;Delantero;4
+Juan Camilo Hernández;22;183;77;4000000;Delantero;3
+Luis Díaz;25;179;72;4600000;Delantero;5
+Dávinson Sánchez;25;187;82;4300000;Defensa;1
+William Tesillo;31;180;80;3800000;Defensa;0
+Juan Fernando Quintero;29;170;68;4700000;Mediocampista;2
+Richar Rios;22;1.80;70;250000;Mediocampista;4

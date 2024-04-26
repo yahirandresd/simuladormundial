@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Vahid Halilhodžić,69,1.85,-,2000000,Entrenador,-
-Yassine Bounou,30,192,85,1500000,Portero,0
-Achraf Hakimi,23,181,73,3000000,Defensa,6
-Romain Saïss,31,190,84,1800000,Defensa,5
-Noussair Mazraoui,23,181,75,2500000,Defensa,2
-Hakim Ziyech,28,181,72,3500000,Mediocampista,10
-Youssef En-Nesyri,24,188,80,2800000,Delantero,9
-Sofiane Boufal,27,175,70,2000000,Delantero,11
-Amine Harit,24,178,76,2200000,Mediocampista,8
-Younès Belhanda,31,183,78,2200000,Mediocampista,14
-Achraf Dari,26,185,82,1800000,Defensa,4
-Youssef El-Arabi,34,184,80,2000000,Delantero,13
-Yunis Abdelhamid,33,187,85,1800000,Defensa,3
-Karim El Ahmadi,36,177,75,1600000,Mediocampista,16
-Adam Masina,27,188,82,1900000,Defensa,12
-Hamza Mendyl,24,184,76,1800000,Defensa,22
-Zouhair Feddal,32,188,83,1700000,Defensa,15
-Oussama Idrissi,25,179,72,2400000,Delantero,18
-Issam Chebake,23,191,86,1600000,Portero,1
+nombre;edad;altura;peso;salario;posicion;goles
+Vahid Halilhodžić;69;1.85;-;2000000;Entrenador;-
+Yassine Bounou;30;192;85;1500000;Portero;0
+Achraf Hakimi;23;181;73;3000000;Defensa;6
+Romain Saïss;31;190;84;1800000;Defensa;5
+Noussair Mazraoui;23;181;75;2500000;Defensa;2
+Hakim Ziyech;28;181;72;3500000;Mediocampista;10
+Youssef En-Nesyri;24;188;80;2800000;Delantero;9
+Sofiane Boufal;27;175;70;2000000;Delantero;11
+Amine Harit;24;178;76;2200000;Mediocampista;8
+Younès Belhanda;31;183;78;2200000;Mediocampista;14
+Achraf Dari;26;185;82;1800000;Defensa;4
+Youssef El-Arabi;34;184;80;2000000;Delantero;13
+Yunis Abdelhamid;33;187;85;1800000;Defensa;3
+Karim El Ahmadi;36;177;75;1600000;Mediocampista;16
+Adam Masina;27;188;82;1900000;Defensa;12
+Hamza Mendyl;24;184;76;1800000;Defensa;22
+Zouhair Feddal;32;188;83;1700000;Defensa;15
+Oussama Idrissi;25;179;72;2400000;Delantero;18
+Issam Chebake;23;191;86;1600000;Portero;1

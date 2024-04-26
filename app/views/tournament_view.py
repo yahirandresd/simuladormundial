@@ -3,14 +3,15 @@ import csv
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
     QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget
 from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator
+from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
 from app.model.team import Team
 
 
 class TournamentView(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Gestión de Equipos de Fútbol")
+        self.setWindowTitle("Copa Mundial de la FIFA 2026")
+
 
         # Diccionario para almacenar las tablas de equipos por grupo
         self.tablas_por_grupo = {}
@@ -65,6 +66,11 @@ class TournamentView(QWidget):
         self.tab_widget = QTabWidget()
         self.tab_widget.setFont(font)
 
+        #Widget Izquierdo
+        layout_left = QVBoxLayout()
+        # Widget para mostrar info y TabWidget a la derecha
+        layout_right = QVBoxLayout()
+
         # Configurar diseño
         layout = QVBoxLayout()
         layout.addWidget(QLabel("Nombre del equipo:", font=font))
@@ -77,23 +83,35 @@ class TournamentView(QWidget):
         layout.addWidget(self.velocidad)
         layout.addWidget(QLabel("Precisión:", font=font))
         layout.addWidget(self.lista_precision)
-        layout.addWidget(QLabel("Criterio:", font=font))
-        layout.addWidget(self.lista_criterio)
+        layout_right.addWidget(QLabel("Criterio:", font=font))
+        layout_right.addWidget(self.lista_criterio)
         layout.addWidget(QLabel("Grupo:", font=font))
         layout.addWidget(self.lista_grupo)
 
         layout.addStretch()
 
-        layout_h = QHBoxLayout()
-        layout_h.addWidget(self.boton_cargar)
-        layout_h.addWidget(self.boton_ingresar)
-        layout_h.addWidget(self.boton_simular_fecha)
-        layout.addLayout(layout_h)
+        #Botones
+        botones_layout = QHBoxLayout()
+        botones_layout.addWidget(self.boton_cargar)
+        botones_layout.addWidget(self.boton_ingresar)
 
-        layout.addWidget(self.info_texto)
-        layout.addWidget(self.tab_widget)
 
-        self.setLayout(layout)
+        #Organizar widgets a la izquierda
+        layout_left.addLayout(layout)
+        layout_left.addLayout(botones_layout)
+
+
+        #Boton de Simula Fecha
+        layout_right.addWidget(self.boton_simular_fecha)
+        layout_right.addWidget(self.info_texto)
+        layout_right.addWidget(self.tab_widget)
+
+        #Organizar en la ventana principal
+        main_layout = QHBoxLayout()
+        main_layout.addLayout(layout_left)
+        main_layout.addLayout(layout_right)
+
+        self.setLayout(main_layout)
 
         # Configurar validadores para los campos de resistencia, fuerza y velocidad
         self.resistencia.setValidator(QIntValidator(0, 99, self))
@@ -108,7 +126,7 @@ class TournamentView(QWidget):
                 contenido = file.read()
                 self.info_texto.setText(contenido)
 
-    def ingresar_datos(self):
+    def ingresar_datos(self, pj=None):
         # Obtener nombre, resistencia, fuerza y velocidad del equipo
         nombre = self.nombre_equipo.text()
         resistencia = self.resistencia.text()

@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Dragan Skočić,51,1.82,-,1200000,Entrenador,-
-Alireza Beiranvand,29,194,85,800000,Portero,0
-Morteza Pouraliganji,29,190,88,1000000,Defensa,5
-Milad Mohammadi,28,183,78,900000,Defensa,2
-Saeid Ezatolahi,25,188,82,1100000,Mediocampista,6
-Alireza Jahanbakhsh,28,180,75,1500000,Delantero,11
-Karim Ansarifard,31,184,81,1200000,Delantero,7
-Samuel Ghoddos,28,178,74,1000000,Delantero,9
-Ehsan Hajsafi,31,181,76,900000,Mediocampista,8
-Majid Hosseini,25,192,85,1100000,Defensa,4
-Vahid Amiri,34,180,74,1000000,Mediocampista,10
-Mehdi Taremi,28,185,80,1300000,Delantero,13
-Omid Ebrahimi,34,185,82,800000,Mediocampista,14
-Ramin Rezaeian,31,178,75,900000,Defensa,22
-Mehdi Torabi,27,175,71,1000000,Mediocampista,23
-Sardar Azmoun,26,186,85,1400000,Delantero,18
-Pejman Montazeri,38,185,85,700000,Defensa,3
-Mohammad Rashid Mazaheri,28,190,88,750000,Portero,1
-Ali Gholizadeh,25,179,70,950000,Mediocampista,16
+nombre;edad;altura;peso;salario;posicion;goles
+Dragan Skočić;51;1.82;-;1200000;Entrenador;-
+Alireza Beiranvand;29;194;85;800000;Portero;0
+Morteza Pouraliganji;29;190;88;1000000;Defensa;5
+Milad Mohammadi;28;183;78;900000;Defensa;2
+Saeid Ezatolahi;25;188;82;1100000;Mediocampista;6
+Alireza Jahanbakhsh;28;180;75;1500000;Delantero;11
+Karim Ansarifard;31;184;81;1200000;Delantero;7
+Samuel Ghoddos;28;178;74;1000000;Delantero;9
+Ehsan Hajsafi;31;181;76;900000;Mediocampista;8
+Majid Hosseini;25;192;85;1100000;Defensa;4
+Vahid Amiri;34;180;74;1000000;Mediocampista;10
+Mehdi Taremi;28;185;80;1300000;Delantero;13
+Omid Ebrahimi;34;185;82;800000;Mediocampista;14
+Ramin Rezaeian;31;178;75;900000;Defensa;22
+Mehdi Torabi;27;175;71;1000000;Mediocampista;23
+Sardar Azmoun;26;186;85;1400000;Delantero;18
+Pejman Montazeri;38;185;85;700000;Defensa;3
+Mohammad Rashid Mazaheri;28;190;88;750000;Portero;1
+Ali Gholizadeh;25;179;70;950000;Mediocampista;16

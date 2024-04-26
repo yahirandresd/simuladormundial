@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Óscar Tabárez,75,1.70,-,3000000,Entrenador,-
-Fernando Muslera,35,191,81,2000000,Portero,0
-Diego Godín,35,187,78,4000000,Defensa,2
-Edinson Cavani,35,184,75,5000000,Delantero,9
-Luis Suárez,35,182,81,4500000,Delantero,10
-José María Giménez,27,185,77,3500000,Defensa,3
-Matías Vecino,30,187,80,3000000,Mediocampista,8
-Nahitan Nández,26,172,68,3000000,Mediocampista,6
-Federico Valverde,24,182,78,3500000,Mediocampista,5
-Giovanni González,26,179,75,2500000,Defensa,2
-Darwin Núñez,23,187,79,3000000,Delantero,7
-Gastón Pereiro,26,186,77,2500000,Delantero,8
-Martín Cáceres,35,178,77,2500000,Defensa,1
-Lucas Torreira,25,173,68,3000000,Mediocampista,4
-Rodrigo Bentancur,24,187,78,3500000,Mediocampista,3
-Sebastián Coates,31,196,89,3000000,Defensa,1
-Nicolás De La Cruz,24,170,68,3000000,Mediocampista,2
-Jonathan Rodríguez,27,169,70,2500000,Delantero,7
-Giorgian De Arrascaeta,27,175,73,3500000,Mediocampista,6
+nombre;edad;altura;peso;salario;posicion;goles
+Óscar Tabárez;75;1.70;-;3000000;Entrenador;-
+Fernando Muslera;35;191;81;2000000;Portero;0
+Diego Godín;35;187;78;4000000;Defensa;2
+Edinson Cavani;35;184;75;5000000;Delantero;9
+Luis Suárez;35;182;81;4500000;Delantero;10
+José María Giménez;27;185;77;3500000;Defensa;3
+Matías Vecino;30;187;80;3000000;Mediocampista;8
+Nahitan Nández;26;172;68;3000000;Mediocampista;6
+Federico Valverde;24;182;78;3500000;Mediocampista;5
+Giovanni González;26;179;75;2500000;Defensa;2
+Darwin Núñez;23;187;79;3000000;Delantero;7
+Gastón Pereiro;26;186;77;2500000;Delantero;8
+Martín Cáceres;35;178;77;2500000;Defensa;1
+Lucas Torreira;25;173;68;3000000;Mediocampista;4
+Rodrigo Bentancur;24;187;78;3500000;Mediocampista;3
+Sebastián Coates;31;196;89;3000000;Defensa;1
+Nicolás De La Cruz;24;170;68;3000000;Mediocampista;2
+Jonathan Rodríguez;27;169;70;2500000;Delantero;7
+Giorgian De Arrascaeta;27;175;73;3500000;Mediocampista;6

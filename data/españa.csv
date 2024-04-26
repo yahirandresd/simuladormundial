@@ -1,20 +1,20 @@
-nombre,edad,altura,peso,salario,posicion,goles
-Luis Enrique Martínez,51,-,-,4500000,Entrenador,-
-David de Gea,31,192,82,7000000,Portero,0
-Sergio Ramos,36,184,75,8000000,Defensa,3
-Sergio Busquets,33,189,76,6000000,Mediocampista,2
-Jordi Alba,33,170,68,5000000,Defensa,1
-Gerard Moreno,29,180,75,4000000,Delantero,9
-Koke,30,178,73,5000000,Mediocampista,5
-Thiago Alcántara,31,174,70,6000000,Mediocampista,4
-Álvaro Morata,29,187,81,7000000,Delantero,7
-Pau Torres,25,191,80,4000000,Defensa,2
-Ferran Torres,22,184,76,5000000,Delantero,8
-Marco Asensio,26,182,75,6000000,Delantero,6
-Pedri,19,169,64,3500000,Mediocampista,3
-Aymeric Laporte,28,189,85,4500000,Defensa,1
-Dani Olmo,24,180,72,4000000,Delantero,5
-Kepa Arrizabalaga,28,186,85,5000000,Portero,0
-José Gayà,26,170,68,4000000,Defensa,2
-Rodri,25,191,80,6000000,Mediocampista,4
-Fabián Ruiz,25,182,74,4500000,Mediocampista,2
+nombre;edad;altura;peso;salario;posicion;goles
+Luis Enrique Martínez;51;-;-;4500000;Entrenador;-
+David de Gea;31;192;82;7000000;Portero;0
+Sergio Ramos;36;184;75;8000000;Defensa;3
+Sergio Busquets;33;189;76;6000000;Mediocampista;2
+Jordi Alba;33;170;68;5000000;Defensa;1
+Gerard Moreno;29;180;75;4000000;Delantero;9
+Koke;30;178;73;5000000;Mediocampista;5
+Thiago Alcántara;31;174;70;6000000;Mediocampista;4
+Álvaro Morata;29;187;81;7000000;Delantero;7
+Pau Torres;25;191;80;4000000;Defensa;2
+Ferran Torres;22;184;76;5000000;Delantero;8
+Marco Asensio;26;182;75;6000000;Delantero;6
+Pedri;19;169;64;3500000;Mediocampista;3
+Aymeric Laporte;28;189;85;4500000;Defensa;1
+Dani Olmo;24;180;72;4000000;Delantero;5
+Kepa Arrizabalaga;28;186;85;5000000;Portero;0
+José Gayà;26;170;68;4000000;Defensa;2
+Rodri;25;191;80;6000000;Mediocampista;4
+Fabián Ruiz;25;182;74;4500000;Mediocampista;2
