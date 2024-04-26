@@ -1,0 +1,20 @@
+nombre,edad,altura,peso,salario,posicion,goles
+Gerardo Martino,59,1.75,-,4000000,Entrenador,-
+Guillermo Ochoa,36,183,78,2500000,Portero,0
+Héctor Moreno,33,184,79,2000000,Defensa,1
+Jesús Corona,29,173,70,3000000,Defensa,2
+Andrés Guardado,35,176,75,3000000,Mediocampista,3
+Raúl Jiménez,30,190,80,7000000,Delantero,10
+Hirving Lozano,26,176,73,6000000,Delantero,9
+Néstor Araujo,29,185,82,2000000,Defensa,2
+Edson Álvarez,24,187,80,4000000,Defensa,1
+Diego Lainez,21,170,65,3500000,Delantero,4
+Jonathan dos Santos,31,173,74,3000000,Mediocampista,2
+Orbelín Pineda,26,170,72,2500000,Mediocampista,3
+Jesús Gallardo,27,175,72,3000000,Defensa,2
+Rodolfo Pizarro,27,178,75,3500000,Delantero,6
+Carlos Salcedo,28,185,82,3000000,Defensa,1
+Héctor Herrera,31,185,80,4000000,Mediocampista,5
+Javier Hernández,33,175,71,4500000,Delantero,7
+Alexis Vega,24,175,73,2500000,Delantero,8
+Jonathan Rodríguez,28,175,74,3500000,Delantero,4

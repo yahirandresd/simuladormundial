@@ -1,0 +1,20 @@
+nombre,edad,altura,peso,salario,posicion,goles
+Frank de Boer,51,1.82,-,4000000,Entrenador,-
+Maarten Stekelenburg,39,197,92,2000000,Portero,0
+Virgil van Dijk,30,193,92,8000000,Defensa,3
+Georginio Wijnaldum,31,175,70,6000000,Mediocampista,2
+Memphis Depay,28,176,78,7000000,Delantero,10
+Stefan de Vrij,29,189,78,5000000,Defensa,2
+Denzel Dumfries,25,189,78,3500000,Defensa,1
+Daley Blind,32,180,75,4000000,Defensa,2
+Frenkie de Jong,24,181,74,7000000,Mediocampista,4
+Matthijs de Ligt,22,189,82,6000000,Defensa,1
+Luuk de Jong,31,188,88,3000000,Delantero,9
+Steven Berghuis,30,184,78,4000000,Delantero,7
+Quincy Promes,30,176,75,3500000,Delantero,8
+Ryan Gravenberch,,19,190,78,4000000,Mediocampista,5
+Davy Klaassen,28,178,74,3500000,Mediocampista,3
+Denzel Dumfries,25,189,78,3500000,Defensa,1
+Donyell Malen,22,183,75,4000000,Delantero,6
+Joël Veltman,29,184,79,3000000,Defensa,2
+Jurrien Timber,20,178,72,2500000,Defensa,1
