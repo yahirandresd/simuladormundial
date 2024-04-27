@@ -1,76 +1,50 @@
 import sys
-import csv
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
-    QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget
+    QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
-from app.model.match import Match  # Importamos la clase Match del archivo match.py
-from app.model.team import Team  # Importamos la clase Team del archivo team.py
-from PyQt5.QtWidgets import QInputDialog
-
+from app.model.match import Match
+from app.model.tournament import Tournament
 
 
 class TournamentView(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Copa Mundial de la FIFA 2026")
-
-
-        # Diccionario para almacenar las tablas de equipos por grupo
         self.tablas_por_grupo = {}
-
-        # Widgets para ingresar datos del equipo
         self.nombre_equipo = QLineEdit()
         self.resistencia = QLineEdit()
         self.fuerza = QLineEdit()
         self.velocidad = QLineEdit()
-
-        # Establecer un tamaño de fuente más grande para los widgets de entrada de texto
         font = QFont()
         font.setPointSize(14)
         self.nombre_equipo.setFont(font)
         self.resistencia.setFont(font)
         self.fuerza.setFont(font)
         self.velocidad.setFont(font)
-
-        # Lista desplegable para precisión y grupo
         self.lista_precision = QComboBox()
         self.lista_precision.addItems(["Alto", "Medio", "Bajo"])
         self.lista_precision.setFont(font)
-
         self.lista_grupo = QComboBox()
         self.lista_grupo.addItems(["Grupo A", "Grupo B", "Grupo C", "Grupo D",
                                    "Grupo E", "Grupo F", "Grupo G", "Grupo H"])
         self.lista_grupo.setFont(font)
-
-        # Botones para cargar, ingresar datos y simular fecha
         self.boton_cargar = QPushButton("Cargar archivo")
         self.boton_cargar.clicked.connect(self.cargar_archivo)
         self.boton_cargar.setFont(font)
-
         self.boton_ingresar = QPushButton("Ingresar")
         self.boton_ingresar.clicked.connect(self.ingresar_datos)
         self.boton_ingresar.setFont(font)
-
         self.boton_simular_fecha = QPushButton("Simular Fecha")
         self.boton_simular_fecha.clicked.connect(self.simular_fecha)
         self.boton_simular_fecha.setFont(font)
-
-        # Widget para mostrar información
         self.info_texto = QTextEdit()
         self.info_texto.setReadOnly(True)
         self.info_texto.setFont(font)
-
-        # TabWidget para organizar las tablas por grupo
         self.tab_widget = QTabWidget()
         self.tab_widget.setFont(font)
-
-        # Widget Izquierdo
         layout_left = QVBoxLayout()
-        # Widget para mostrar info y TabWidget a la derecha
         layout_right = QVBoxLayout()
-
-        # Configurar diseño
         layout = QVBoxLayout()
         layout.addWidget(QLabel("Nombre del equipo:", font=font))
         layout.addWidget(self.nombre_equipo)
@@ -84,37 +58,25 @@ class TournamentView(QWidget):
         layout.addWidget(self.lista_precision)
         layout.addWidget(QLabel("Grupo:", font=font))
         layout.addWidget(self.lista_grupo)
-
         layout.addStretch()
-
-        # Botones
         botones_layout = QHBoxLayout()
         botones_layout.addWidget(self.boton_cargar)
         botones_layout.addWidget(self.boton_ingresar)
-
-        # Organizar widgets a la izquierda
         layout_left.addLayout(layout)
         layout_left.addLayout(botones_layout)
-
-        # Boton de Simula Fecha
         layout_right.addWidget(self.boton_simular_fecha)
         layout_right.addWidget(self.info_texto)
         layout_right.addWidget(self.tab_widget)
-
-        # Organizar en la ventana principal
         main_layout = QHBoxLayout()
         main_layout.addLayout(layout_left)
         main_layout.addLayout(layout_right)
-
         self.setLayout(main_layout)
-
-        # Configurar validadores para los campos de resistencia, fuerza y velocidad
         self.resistencia.setValidator(QIntValidator(0, 99, self))
         self.fuerza.setValidator(QIntValidator(0, 99, self))
         self.velocidad.setValidator(QIntValidator(0, 99, self))
+        self.controller = Tournament(self.tablas_por_grupo)
 
     def cargar_archivo(self):
-        # Aquí puedes agregar la lógica para cargar un archivo
         archivo, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos CSV (*.csv)")
         if archivo:
             with open(archivo, "r") as file:
@@ -122,56 +84,11 @@ class TournamentView(QWidget):
                 self.info_texto.setText(contenido)
 
     def ingresar_datos(self, pj=None):
-        # Obtener nombre, resistencia, fuerza y velocidad del equipo
-        nombre = self.nombre_equipo.text()
-        resistencia = self.resistencia.text()
-        fuerza = self.fuerza.text()
-        velocidad = self.velocidad.text()
-
-        # Verificar si algún campo está vacío
-        if not nombre or not resistencia or not fuerza or not velocidad:
-            QMessageBox.warning(self, "Campos incompletos", "Por favor, complete todos los campos.")
-            return
-
-        # Verificar si el equipo ya está en el grupo seleccionado
-        grupo = self.lista_grupo.currentText()
-        tabla_grupo = self.tablas_por_grupo.get(grupo)
-        if not tabla_grupo:
-            tabla_grupo = QTableWidget()
-            tabla_grupo.setColumnCount(8)
-            tabla_grupo.setHorizontalHeaderLabels(["Equipo", "PJ", "PG", "PE", "PP", "GF", "GC", "Puntos"])
-            self.tablas_por_grupo[grupo] = tabla_grupo
-            self.tab_widget.addTab(tabla_grupo, grupo)
-
-        equipos_grupo = [tabla_grupo.item(fila, 0).text() for fila in range(tabla_grupo.rowCount())]
-        if nombre in equipos_grupo:
-            QMessageBox.warning(self, "Equipo duplicado", "Este equipo ya está en el grupo {}.".format(grupo))
-            return
-
-        # Verificar si el equipo ya está en otro grupo
-        for otro_grupo, otra_tabla in self.tablas_por_grupo.items():
-            if otro_grupo != grupo and nombre in [otra_tabla.item(fila, 0).text() for fila in
-                                                  range(otra_tabla.rowCount())]:
-                QMessageBox.warning(self, "Equipo duplicado", "Este equipo ya está en el grupo {}.".format(otro_grupo))
-                return
-
-        # Si el equipo no está en ninguna tabla del grupo, continuar con la inserción
-        fila = tabla_grupo.rowCount()
-        if fila < 4:  # Máximo 4 equipos por grupo
-            tabla_grupo.insertRow(fila)
-            tabla_grupo.setItem(fila, 0, QTableWidgetItem(nombre))
-
-            # Crear un objeto Team y guardar los datos en el archivo CSV
-            equipo = Team(nombre, resistencia, fuerza, velocidad, self.lista_precision.currentText(), grupo, pj=0, pg=0, pe=0, pp=0, ga=0, ge=0, puntos=0)
-            equipo.guardar_datos_csv()
-        else:
-            QMessageBox.warning(self, "Límite de equipos", "Ya hay 4 equipos en el grupo {}.".format(grupo))
+        self.controller.ingresar_datos(self)
 
     def simular_fecha(self):
-        # Mostrar el ComboBox de criterio cuando se hace clic en el botón "Simular Fecha"
         opciones_criterio = ["Resistencia", "Velocidad", "Fuerza", "Precisión"]
         criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio)
-        
+
         if ok:
-            # Aquí puedes realizar acciones adicionales relacionadas con la simulación de la fecha usando el criterio seleccionado
             print("Se seleccionó el criterio:", criterio)
