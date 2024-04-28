@@ -1,7 +1,7 @@
 import csv
 
 class Team:
-    def __init__(self, nombre, resistencia, fuerza, velocidad, precision, grupo, pj, pg, pe, pp, ga, ge, puntos):
+    def __init__(self, nombre, resistencia, fuerza, velocidad, precision, grupo, pj, pg, pe, pp, ga, ge, puntos, plantilla):
         self.nombre = nombre
         self.resistencia = resistencia
         self.fuerza = fuerza
@@ -15,21 +15,33 @@ class Team:
         self.ga = ga
         self.ge = ge
         self.puntos = puntos
+        self.plantilla = plantilla
 
     def guardar_datos_csv(self):
         # Nombre del archivo CSV
         archivo_csv = "equipos.csv"
 
-        # Encabezados del archivo CSV
-        encabezados = ["Nombre", "Resistencia", "Fuerza", "Velocidad", "Precision", "Grupo", "PJ", "PG", "PE", "PP", "GA", "GE", "Puntos"]
-
-        # Datos de este equipo
-        datos_equipo = [self.nombre, self.resistencia, self.fuerza, self.velocidad, self.precision, self.grupo, self.pj, self.pg, self.pe, self.pp, self.ga, self.ge, self.puntos]
+        # Datos de este equipo como un diccionario
+        datos_equipo = {
+            "Nombre": self.nombre,
+            "Resistencia": self.resistencia,
+            "Fuerza": self.fuerza,
+            "Velocidad": self.velocidad,
+            "Precision": self.precision,
+            "Grupo": self.grupo,
+            "PJ": self.pj,
+            "PG": self.pg,
+            "PE": self.pe,
+            "PP": self.pp,
+            "GA": self.ga,
+            "GE": self.ge,
+            "Puntos": self.puntos,
+            "Plantilla": self.plantilla
+        }
+        print(datos_equipo)
 
         # Escribir los datos en el archivo CSV
-        with open(archivo_csv, mode='a', newline='') as file:
-            writer = csv.writer(file)
-            # Verificar si es el primer equipo y agregar los encabezados
-            if file.tell() == 0:
-                writer.writerow(encabezados)
+        with open(archivo_csv, mode='w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=datos_equipo.keys())
+            writer.writeheader()
             writer.writerow(datos_equipo)

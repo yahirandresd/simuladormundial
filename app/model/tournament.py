@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import QMessageBox, QTableWidget, QTableWidgetItem
 from app.model.team import Team
 
-class   Tournament:
+class Tournament:
     def __init__(self, tablas_por_grupo):
         self.tablas_por_grupo = tablas_por_grupo
 
-    def ingresar_datos(self, view):
+    def ingresar_datos(self, view, plantilla):
         nombre = view.nombre_equipo.text()
         resistencia = view.resistencia.text()
         fuerza = view.fuerza.text()
@@ -40,7 +40,7 @@ class   Tournament:
             tabla_grupo.setItem(fila, 0, QTableWidgetItem(nombre))
             for col in range(1, 8):
                 tabla_grupo.setItem(fila, col, QTableWidgetItem("0"))
-            equipo = Team(nombre, resistencia, fuerza, velocidad, view.lista_precision.currentText(), grupo, pj=0, pg=0, pe=0, pp=0, ga=0, ge=0, puntos=0)
+            equipo = Team(nombre, resistencia, fuerza, velocidad, view.lista_precision.currentText(), grupo, pj=0, pg=0, pe=0, pp=0, ga=0, ge=0, puntos=0, plantilla=plantilla)
             equipo.guardar_datos_csv()
         else:
             QMessageBox.warning(view, "Límite de equipos", "Ya hay 4 equipos en el grupo {}.".format(grupo))

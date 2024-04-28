@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
     QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog
-from PyQt5.QtCore import QRegExp
+import  os
 from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
 from app.model.match import Match
 from app.model.tournament import Tournament
@@ -16,6 +16,8 @@ class TournamentView(QWidget):
         self.resistencia = QLineEdit()
         self.fuerza = QLineEdit()
         self.velocidad = QLineEdit()
+        self.plantilla = ""
+        self.nombre_archivo_label = QLineEdit()
         font = QFont()
         font.setPointSize(14)
         self.nombre_equipo.setFont(font)
@@ -79,16 +81,25 @@ class TournamentView(QWidget):
     def cargar_archivo(self):
         archivo, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos CSV (*.csv)")
         if archivo:
+            self.plantilla = os.path.basename(archivo)
+            self.nombre_archivo_label.setText(self.plantilla)
             with open(archivo, "r") as file:
                 contenido = file.read()
                 self.info_texto.setText(contenido)
 
-    def ingresar_datos(self, pj=None):
-        self.controller.ingresar_datos(self)
+
+    def ingresar_datos(self):
+        self.controller.ingresar_datos(self, self.plantilla)
+        self.limpiar_campos()
+
+    def limpiar_campos(self):
+        self.nombre_equipo.clear()
+        self.resistencia.clear()
+        self.fuerza.clear()
+        self.velocidad.clear()
+        self.lista_precision.setCurrentIndex(0)
+        self.lista_grupo.setCurrentIndex(0)
 
     def simular_fecha(self):
         opciones_criterio = ["Resistencia", "Velocidad", "Fuerza", "Precisión"]
         criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio)
-
-        if ok:
-            print("Se seleccionó el criterio:", criterio)
