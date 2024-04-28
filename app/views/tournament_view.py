@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
-    QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog
+    QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog, QAbstractItemView
 import  os
 from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
 from app.model.match import Match
@@ -34,11 +34,12 @@ class TournamentView(QWidget):
         self.boton_cargar = QPushButton("Cargar archivo")
         self.boton_cargar.clicked.connect(self.cargar_archivo)
         self.boton_cargar.setFont(font)
-        self.boton_ingresar = QPushButton("Ingresar")
+        self.boton_ingresar = QPushButton("Ingresar Equipo")
         self.boton_ingresar.clicked.connect(self.ingresar_datos)
         self.boton_ingresar.setFont(font)
         self.boton_simular_fecha = QPushButton("Simular Fecha")
         self.boton_simular_fecha.clicked.connect(self.simular_fecha)
+        self.boton_simular_fecha.setEnabled(False)
         self.boton_simular_fecha.setFont(font)
         self.info_texto = QTextEdit()
         self.info_texto.setReadOnly(True)
@@ -62,9 +63,11 @@ class TournamentView(QWidget):
         layout.addWidget(self.lista_grupo)
         layout.addStretch()
         botones_layout = QHBoxLayout()
+        label_plantilla = QLabel("Plantilla jugadores", font=font)
         botones_layout.addWidget(self.boton_cargar)
         botones_layout.addWidget(self.boton_ingresar)
         layout_left.addLayout(layout)
+        layout_left.addWidget(label_plantilla)
         layout_left.addLayout(botones_layout)
         layout_right.addWidget(self.boton_simular_fecha)
         layout_right.addWidget(self.info_texto)
@@ -83,14 +86,22 @@ class TournamentView(QWidget):
         if archivo:
             self.plantilla = os.path.basename(archivo)
             self.nombre_archivo_label.setText(self.plantilla)
-            with open(archivo, "r") as file:
+            with open(archivo, "r", encoding="utf-8") as file:  # Especificar encoding utf-8
                 contenido = file.read()
                 self.info_texto.setText(contenido)
-
 
     def ingresar_datos(self):
         self.controller.ingresar_datos(self, self.plantilla)
         self.limpiar_campos()
+
+
+        # Verificar si se alcanzó el límite de 4 equipos en el grupo seleccionado
+        grupo_seleccionado = self.lista_grupo.currentText()
+        tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
+        if tabla_grupo and tabla_grupo.rowCount() == 4:
+            self.boton_simular_fecha.setEnabled(True)  # Activar el botón si hay 4 equipos en el grupo
+        else:
+            self.boton_simular_fecha.setEnabled(False)
 
     def limpiar_campos(self):
         self.nombre_equipo.clear()
