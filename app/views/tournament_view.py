@@ -98,7 +98,7 @@ class TournamentView(QWidget):
         # Verificar si se alcanzó el límite de 4 equipos en el grupo seleccionado
         grupo_seleccionado = self.lista_grupo.currentText()
         tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
-        if tabla_grupo and tabla_grupo.rowCount() == 4:
+        if tabla_grupo and tabla_grupo.rowCount() == 1:
             self.boton_simular_fecha.setEnabled(True)  # Activar el botón si hay 4 equipos en el grupo
         else:
             self.boton_simular_fecha.setEnabled(False)

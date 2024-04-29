@@ -17,9 +17,19 @@ class Team:
         self.puntos = puntos
         self.plantilla = plantilla
 
+    def obtener_numero_precision(self):
+        if self.precision == "Bajo":
+            return 1
+        elif self.precision == "Medio":
+            return 2
+        elif self.precision == "Alto":
+            return 3
+
     def guardar_datos_csv(self):
         # Nombre del archivo CSV
         archivo_csv = "equipos.csv"
+
+        numero_precision = self.obtener_numero_precision()
 
         # Datos de este equipo como un diccionario
         datos_equipo = {
@@ -27,7 +37,7 @@ class Team:
             "Resistencia": self.resistencia,
             "Fuerza": self.fuerza,
             "Velocidad": self.velocidad,
-            "Precision": self.precision,
+            "Precision": numero_precision,
             "Grupo": self.grupo,
             "PJ": self.pj,
             "PG": self.pg,

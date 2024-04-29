@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QMessageBox, QTableWidget, QTableWidgetItem
 from app.model.team import Team
-from PyQt5.QtCore import Qt
-
 
 class Tournament:
     def __init__(self, tablas_por_grupo):
@@ -14,7 +12,7 @@ class Tournament:
         velocidad = view.velocidad.text()
         grupo = view.lista_grupo.currentText()
 
-        if not nombre or not resistencia or not fuerza or not velocidad or not plantilla:
+        if not nombre or not resistencia or not fuerza or not velocidad:
             QMessageBox.warning(view, "Campos incompletos", "Por favor, complete todos los campos.")
             return
 
@@ -46,8 +44,3 @@ class Tournament:
             equipo.guardar_datos_csv()
         else:
             QMessageBox.warning(view, "Límite de equipos", "Ya hay 4 equipos en el grupo {}.".format(grupo))
-
-        for col in range(1, 8):
-            item = QTableWidgetItem("0")
-            item.setFlags(item.flags() & ~Qt.ItemIsEditable)  # Hace que el ítem no sea editable
-            tabla_grupo.setItem(fila, col, item)
