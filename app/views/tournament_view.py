@@ -5,6 +5,7 @@ import  os
 from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
 from app.model.match import Match
 from app.model.tournament import Tournament
+from app.model.team import Team
 
 
 class TournamentView(QWidget):
@@ -98,10 +99,10 @@ class TournamentView(QWidget):
         # Verificar si se alcanzó el límite de 4 equipos en el grupo seleccionado
         grupo_seleccionado = self.lista_grupo.currentText()
         tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
-        if tabla_grupo and tabla_grupo.rowCount() == 1:
+        if tabla_grupo and tabla_grupo.rowCount() <= 2:
             self.boton_simular_fecha.setEnabled(True)  # Activar el botón si hay 4 equipos en el grupo
         else:
-            self.boton_simular_fecha.setEnabled(False)
+            self.boton_simular_fecha.setEnabled(True)
 
     def limpiar_campos(self):
         self.nombre_equipo.clear()
@@ -110,7 +111,70 @@ class TournamentView(QWidget):
         self.velocidad.clear()
         self.lista_precision.setCurrentIndex(0)
         self.lista_grupo.setCurrentIndex(0)
+        self.plantilla = None
+        self.info_texto.clear()
 
     def simular_fecha(self):
         opciones_criterio = ["Resistencia", "Velocidad", "Fuerza", "Precisión"]
         criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio)
+
+        if ok:
+            # Obtener el grupo seleccionado
+            grupo_seleccionado = self.lista_grupo.currentText()
+
+            # Obtener la tabla del grupo seleccionado
+            tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
+
+            if not tabla_grupo or tabla_grupo.rowCount() < 2:
+                QMessageBox.warning(self, "Grupo incompleto", "El grupo seleccionado no tiene suficientes equipos para simular una fecha.")
+                return
+
+            # Obtener equipos del grupo seleccionado
+            equipos_grupo = [tabla_grupo.item(fila, 0).text() for fila in range(tabla_grupo.rowCount())]
+
+            # Jugar partidos entre equipos del mismo grupo
+            for i in range(len(equipos_grupo)):
+                for j in range(i+1, len(equipos_grupo)):
+                    equipo1_nombre = equipos_grupo[i]
+                    equipo2_nombre = equipos_grupo[j]
+
+                    equipo1 = self.controller.get_equipo_por_nombre(equipo1_nombre)
+                    equipo2 = self.controller.get_equipo_por_nombre(equipo2_nombre)
+
+                    partido = Match(equipo1, equipo2, criterio)
+                    partido.jugar_partido()
+
+                    # Actualizar la tabla con los resultados del partido
+                    # (Suponiendo que tienes un método para actualizar la tabla)
+                    self.actualizar_tabla_resultados(partido)
+
+    def actualizar_tabla_resultados(self, partido):
+        equipo1_nombre = partido.equipo1.nombre
+        equipo2_nombre = partido.equipo2.nombre
+
+        # Encontrar la tabla correspondiente al grupo de los equipos
+        grupo = partido.equipo1.grupo
+        tabla_grupo = self.tablas_por_grupo.get(grupo)
+
+        if tabla_grupo:
+            # Encontrar las filas correspondientes a los equipos en la tabla
+            equipo1_row = -1
+            equipo2_row = -1
+            for row in range(tabla_grupo.rowCount()):
+                if tabla_grupo.item(row, 0).text() == equipo1_nombre:
+                    equipo1_row = row
+                elif tabla_grupo.item(row, 0).text() == equipo2_nombre:
+                    equipo2_row = row
+
+            # Actualizar la tabla con los resultados del partido
+            if equipo1_row != -1 and equipo2_row != -1:
+                #Actualiza el GF y GC
+                tabla_grupo.setItem(equipo1_row, 5, QTableWidgetItem(str(partido.equipo1.ga)))  # GF equipo1
+                tabla_grupo.setItem(equipo1_row, 6, QTableWidgetItem(str(partido.equipo1.ge)))  # GC equipo1
+                tabla_grupo.setItem(equipo2_row, 5, QTableWidgetItem(str(partido.equipo2.ga)))  # GF equipo2
+                tabla_grupo.setItem(equipo2_row, 6, QTableWidgetItem(str(partido.equipo2.ge)))  # GC equipo2
+                #Actualiza PJ y PG, PE, PP
+                tabla_grupo.setItem(equipo1_row, 1, QTableWidgetItem(str(partido.equipo1.pj)))  # GF equipo1
+                tabla_grupo.setItem(equipo1_row, 2, QTableWidgetItem(str(partido.equipo1.pg)))  # GC equipo1
+                tabla_grupo.setItem(equipo2_row, 1, QTableWidgetItem(str(partido.equipo2.pj)))  # GF equipo2
+                tabla_grupo.setItem(equipo2_row, 2, QTableWidgetItem(str(partido.equipo2.pg)))  # GC equipo2
