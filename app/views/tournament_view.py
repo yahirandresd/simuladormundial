@@ -168,13 +168,22 @@ class TournamentView(QWidget):
 
             # Actualizar la tabla con los resultados del partido
             if equipo1_row != -1 and equipo2_row != -1:
+                #Actualiza PJ, PG, PE y PP
+                tabla_grupo.setItem(equipo1_row, 1, QTableWidgetItem(str(partido.equipo1.pj)))  # PJ equipo1
+                tabla_grupo.setItem(equipo1_row, 2, QTableWidgetItem(str(partido.equipo1.pg)))  # PG
+                tabla_grupo.setItem(equipo1_row, 3, QTableWidgetItem(str(partido.equipo1.pe)))  # PE
+                tabla_grupo.setItem(equipo1_row, 4, QTableWidgetItem(str(partido.equipo1.pp)))  # PP
+
+                tabla_grupo.setItem(equipo2_row, 1, QTableWidgetItem(str(partido.equipo2.pj)))  # PJ equipo2
+                tabla_grupo.setItem(equipo2_row, 2, QTableWidgetItem(str(partido.equipo2.pg)))  # PG
+                tabla_grupo.setItem(equipo2_row, 3, QTableWidgetItem(str(partido.equipo2.pe)))  # PE
+                tabla_grupo.setItem(equipo2_row, 4, QTableWidgetItem(str(partido.equipo2.pp)))  # PP
                 #Actualiza el GF y GC
                 tabla_grupo.setItem(equipo1_row, 5, QTableWidgetItem(str(partido.equipo1.ga)))  # GF equipo1
                 tabla_grupo.setItem(equipo1_row, 6, QTableWidgetItem(str(partido.equipo1.ge)))  # GC equipo1
                 tabla_grupo.setItem(equipo2_row, 5, QTableWidgetItem(str(partido.equipo2.ga)))  # GF equipo2
                 tabla_grupo.setItem(equipo2_row, 6, QTableWidgetItem(str(partido.equipo2.ge)))  # GC equipo2
-                #Actualiza PJ y PG, PE, PP
-                tabla_grupo.setItem(equipo1_row, 1, QTableWidgetItem(str(partido.equipo1.pj)))  # GF equipo1
-                tabla_grupo.setItem(equipo1_row, 2, QTableWidgetItem(str(partido.equipo1.pg)))  # GC equipo1
-                tabla_grupo.setItem(equipo2_row, 1, QTableWidgetItem(str(partido.equipo2.pj)))  # GF equipo2
-                tabla_grupo.setItem(equipo2_row, 2, QTableWidgetItem(str(partido.equipo2.pg)))  # GC equipo2
+                #Actualiza Puntos
+                tabla_grupo.setItem(equipo1_row, 7, QTableWidgetItem(str(partido.equipo1.puntos)))  # Puntos equipo1
+                tabla_grupo.setItem(equipo2_row, 7, QTableWidgetItem(str(partido.equipo2.puntos)))  # Puntos equipo2
+                
