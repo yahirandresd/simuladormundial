@@ -16,8 +16,6 @@ class Match:
 
         if self.criterio == "Resistencia":
             if self.equipo1.resistencia > self.equipo2.resistencia:
-                self.goles_equipo1 = random.randint(2, 5)
-                self.goles_equipo2 = random.randint(1, self.goles_equipo1-1)
                 self.equipo1.ga += self.goles_equipo1
                 self.equipo2.ge += self.goles_equipo1
                 return self.equipo1

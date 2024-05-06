@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 import  os
 from PyQt5.QtGui import QFont, QIntValidator
 from app.model.match import Match
-from app.model.tournament import Tournament
+from app.controllers.tournament_controller import TournamentController
 from app.model.team import Team
 
 
@@ -40,7 +40,7 @@ class TournamentView(QWidget):
         self.boton_ingresar.setFont(self.font)
         self.boton_simular_fecha = QPushButton("Simular Fecha")
         self.boton_simular_fecha.clicked.connect(self.simular_fecha)
-        self.boton_simular_fecha.setEnabled(False)
+        self.boton_simular_fecha.setEnabled(True)
         self.boton_simular_fecha.setFont(self.font)
         self.info_texto = QTextEdit()
         self.info_texto.setReadOnly(True)
@@ -77,10 +77,14 @@ class TournamentView(QWidget):
         main_layout.addLayout(layout_left)
         main_layout.addLayout(layout_right)
         self.setLayout(main_layout)
+        # Dentro del método __init__ de tu TournamentView
+        self.boton_llenar_desde_csv = QPushButton("Llenar desde CSV")
+        self.boton_llenar_desde_csv.clicked.connect(self.llenar_desde_csv)
+        layout_left.addWidget(self.boton_llenar_desde_csv)
         self.resistencia.setValidator(QIntValidator(0, 99, self))
         self.fuerza.setValidator(QIntValidator(0, 99, self))
         self.velocidad.setValidator(QIntValidator(0, 99, self))
-        self.controller = Tournament(self.tablas_por_grupo)
+        self.controller = TournamentController(self.tablas_por_grupo)
 
     def cargar_archivo(self):
         archivo, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos CSV (*.csv)")
@@ -89,16 +93,32 @@ class TournamentView(QWidget):
             self.label_plantilla.setText(f"Plantilla jugadores: {self.plantilla}") 
 
     def ingresar_datos(self):
+        # Verificar si todos los campos están completos
+        if not self.nombre_equipo.text() or not self.resistencia.text() or not self.fuerza.text() or not self.velocidad.text():
+            QMessageBox.warning(self, "Campos incompletos", "Por favor completa todos los campos.")
+            return
+
+        try:
+            # Convertir los valores de resistencia, fuerza y velocidad a enteros
+            resistencia = int(self.resistencia.text())
+            fuerza = int(self.fuerza.text())
+            velocidad = int(self.velocidad.text())
+        except ValueError:
+            QMessageBox.warning(self, "Formato inválido", "Por favor ingresa valores numéricos válidos para resistencia, fuerza y velocidad.")
+            return
+
+        # Continuar con el proceso de ingreso de datos
         self.controller.ingresar_datos(self, self.plantilla)
         self.limpiar_campos()
 
         # Verificar si se alcanzó el límite de 4 equipos en el grupo seleccionado
         grupo_seleccionado = self.lista_grupo.currentText()
         tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
-        if tabla_grupo and tabla_grupo.rowCount() <= 2:
+        """if tabla_grupo and tabla_grupo.rowCount() < 4:
             self.boton_simular_fecha.setEnabled(True)  # Activar el botón si hay 4 equipos en el grupo
         else:
-            self.boton_simular_fecha.setEnabled(True)
+            self.boton_simular_fecha.setEnabled(True)"""
+        
 
     def limpiar_campos(self):
         self.nombre_equipo.clear()
@@ -138,7 +158,8 @@ class TournamentView(QWidget):
             # Obtener la tabla del grupo seleccionado
             tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
 
-            if not tabla_grupo or tabla_grupo.rowCount() < 4:
+            if not tabla_grupo or tabla_grupo.rowCount() < 2:
+                self.jornada_actual -= 1
                 QMessageBox.warning(self, "Grupo incompleto", "El grupo seleccionado no tiene suficientes equipos para simular una fecha.")
                 return
 
@@ -211,3 +232,8 @@ class TournamentView(QWidget):
                 #Actualiza Puntos
                 tabla_grupo.setItem(equipo1_row, 7, QTableWidgetItem(str(partido.equipo1.puntos)))  # Puntos equipo1
                 tabla_grupo.setItem(equipo2_row, 7, QTableWidgetItem(str(partido.equipo2.puntos)))  # Puntos equipo2
+    # Dentro del método llenar_desde_csv de tu TournamentView
+    def llenar_desde_csv(self):
+        archivo, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos CSV (*.csv)")
+        if archivo:
+            self.controller.llenar_grupos_desde_csv(self, archivo)
