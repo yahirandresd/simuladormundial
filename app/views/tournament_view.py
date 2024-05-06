@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
-    QFileDialog, QTextEdit, QTableWidget, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog, QAbstractItemView
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox, \
+    QFileDialog, QTextEdit, QTableWidgetItem, QMessageBox, QTabWidget, QInputDialog
 import  os
-from PyQt5.QtGui import QRegExpValidator, QFont, QIntValidator, QIcon
+from PyQt5.QtGui import QFont, QIntValidator
 from app.model.match import Match
 from app.model.tournament import Tournament
 from app.model.team import Team
@@ -13,62 +13,62 @@ class TournamentView(QWidget):
         super().__init__()
         self.setWindowTitle("Copa Mundial de la FIFA 2026")
         self.tablas_por_grupo = {}
+        self.jornada_actual = 0
         self.nombre_equipo = QLineEdit()
         self.resistencia = QLineEdit()
         self.fuerza = QLineEdit()
         self.velocidad = QLineEdit()
-        self.plantilla = ""
-        self.nombre_archivo_label = QLineEdit()
-        font = QFont()
-        font.setPointSize(14)
-        self.nombre_equipo.setFont(font)
-        self.resistencia.setFont(font)
-        self.fuerza.setFont(font)
-        self.velocidad.setFont(font)
+        self.plantilla = "*ningun archivo*"
+        self.font = QFont()
+        self.font.setPointSize(14)
+        self.nombre_equipo.setFont(self.font)
+        self.resistencia.setFont(self.font)
+        self.fuerza.setFont(self.font)
+        self.velocidad.setFont(self.font)
         self.lista_precision = QComboBox()
         self.lista_precision.addItems(["Alto", "Medio", "Bajo"])
-        self.lista_precision.setFont(font)
+        self.lista_precision.setFont(self.font)
         self.lista_grupo = QComboBox()
         self.lista_grupo.addItems(["Grupo A", "Grupo B", "Grupo C", "Grupo D",
                                    "Grupo E", "Grupo F", "Grupo G", "Grupo H"])
-        self.lista_grupo.setFont(font)
+        self.lista_grupo.setFont(self.font)
         self.boton_cargar = QPushButton("Cargar archivo")
         self.boton_cargar.clicked.connect(self.cargar_archivo)
-        self.boton_cargar.setFont(font)
+        self.boton_cargar.setFont(self.font)
         self.boton_ingresar = QPushButton("Ingresar Equipo")
         self.boton_ingresar.clicked.connect(self.ingresar_datos)
-        self.boton_ingresar.setFont(font)
+        self.boton_ingresar.setFont(self.font)
         self.boton_simular_fecha = QPushButton("Simular Fecha")
         self.boton_simular_fecha.clicked.connect(self.simular_fecha)
         self.boton_simular_fecha.setEnabled(False)
-        self.boton_simular_fecha.setFont(font)
+        self.boton_simular_fecha.setFont(self.font)
         self.info_texto = QTextEdit()
         self.info_texto.setReadOnly(True)
-        self.info_texto.setFont(font)
+        self.info_texto.setFont(self.font)
         self.tab_widget = QTabWidget()
-        self.tab_widget.setFont(font)
+        self.tab_widget.setFont(self.font)
         layout_left = QVBoxLayout()
         layout_right = QVBoxLayout()
         layout = QVBoxLayout()
-        layout.addWidget(QLabel("Nombre del equipo:", font=font))
+        layout.addWidget(QLabel("Nombre del equipo:", font=self.font))
         layout.addWidget(self.nombre_equipo)
-        layout.addWidget(QLabel("Resistencia:", font=font))
+        layout.addWidget(QLabel("Resistencia:", font=self.font))
         layout.addWidget(self.resistencia)
-        layout.addWidget(QLabel("Fuerza:", font=font))
+        layout.addWidget(QLabel("Fuerza:", font=self.font))
         layout.addWidget(self.fuerza)
-        layout.addWidget(QLabel("Velocidad:", font=font))
+        layout.addWidget(QLabel("Velocidad:", font=self.font))
         layout.addWidget(self.velocidad)
-        layout.addWidget(QLabel("Precisión:", font=font))
+        layout.addWidget(QLabel("Precisión:", font=self.font))
         layout.addWidget(self.lista_precision)
-        layout.addWidget(QLabel("Grupo:", font=font))
+        layout.addWidget(QLabel("Grupo:", font=self.font))
         layout.addWidget(self.lista_grupo)
         layout.addStretch()
         botones_layout = QHBoxLayout()
-        label_plantilla = QLabel("Plantilla jugadores", font=font)
+        self.label_plantilla = QLabel(f"Plantilla jugadores: {self.plantilla}", font=self.font)
         botones_layout.addWidget(self.boton_cargar)
         botones_layout.addWidget(self.boton_ingresar)
         layout_left.addLayout(layout)
-        layout_left.addWidget(label_plantilla)
+        layout_left.addWidget(self.label_plantilla)
         layout_left.addLayout(botones_layout)
         layout_right.addWidget(self.boton_simular_fecha)
         layout_right.addWidget(self.info_texto)
@@ -86,15 +86,11 @@ class TournamentView(QWidget):
         archivo, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo", "", "Archivos CSV (*.csv)")
         if archivo:
             self.plantilla = os.path.basename(archivo)
-            self.nombre_archivo_label.setText(self.plantilla)
-            with open(archivo, "r", encoding="utf-8") as file:  # Especificar encoding utf-8
-                contenido = file.read()
-                self.info_texto.setText(contenido)
+            self.label_plantilla.setText(f"Plantilla jugadores: {self.plantilla}") 
 
     def ingresar_datos(self):
         self.controller.ingresar_datos(self, self.plantilla)
         self.limpiar_campos()
-
 
         # Verificar si se alcanzó el límite de 4 equipos en el grupo seleccionado
         grupo_seleccionado = self.lista_grupo.currentText()
@@ -111,14 +107,31 @@ class TournamentView(QWidget):
         self.velocidad.clear()
         self.lista_precision.setCurrentIndex(0)
         self.lista_grupo.setCurrentIndex(0)
-        self.plantilla = None
         self.info_texto.clear()
+        self.label_plantilla.setText(f"Plantilla jugadores: *ningun archivo* ") 
+
+        
+
+    def mostrar_resultados_jornada(self, jornada, resultados):
+        texto = f"Jornada {jornada}\n"
+        for resultado in resultados:
+            equipo1_nombre = resultado['equipo1']
+            equipo2_nombre = resultado['equipo2']
+            resultado_partido = resultado['resultado']
+
+            texto += f"{equipo1_nombre} vs {equipo2_nombre}: {resultado_partido}\n"
+
+        # Mostrar en el QTextEdit
+        self.info_texto.append(texto)
 
     def simular_fecha(self):
         opciones_criterio = ["Resistencia", "Velocidad", "Fuerza", "Precisión"]
-        criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio)
+        criterio, ok = QInputDialog.getItem(self, "Seleccionar Criterio", "Selecciona un criterio:", opciones_criterio, editable=False)
 
         if ok:
+            # Incrementamos la jornada actual
+            self.jornada_actual += 1
+
             # Obtener el grupo seleccionado
             grupo_seleccionado = self.lista_grupo.currentText()
 
@@ -132,6 +145,8 @@ class TournamentView(QWidget):
             # Obtener equipos del grupo seleccionado
             equipos_grupo = [tabla_grupo.item(fila, 0).text() for fila in range(tabla_grupo.rowCount())]
 
+            resultados_jornada = []
+
             # Jugar partidos entre equipos del mismo grupo
             for i in range(len(equipos_grupo)):
                 for j in range(i+1, len(equipos_grupo)):
@@ -144,9 +159,16 @@ class TournamentView(QWidget):
                     partido = Match(equipo1, equipo2, criterio)
                     partido.jugar_partido()
 
+                    # Guardar resultado del partido
+                    resultado_partido = f"{partido.goles_equipo1} - {partido.goles_equipo2}"
+                    resultados_jornada.append({'equipo1': equipo1_nombre, 'equipo2': equipo2_nombre, 'resultado': resultado_partido})
+
                     # Actualizar la tabla con los resultados del partido
-                    # (Suponiendo que tienes un método para actualizar la tabla)
                     self.actualizar_tabla_resultados(partido)
+
+            # Mostrar los resultados de la jornada en el QTextEdit
+            self.mostrar_resultados_jornada(self.jornada_actual, resultados_jornada)
+
 
     def actualizar_tabla_resultados(self, partido):
         equipo1_nombre = partido.equipo1.nombre
@@ -186,4 +208,3 @@ class TournamentView(QWidget):
                 #Actualiza Puntos
                 tabla_grupo.setItem(equipo1_row, 7, QTableWidgetItem(str(partido.equipo1.puntos)))  # Puntos equipo1
                 tabla_grupo.setItem(equipo2_row, 7, QTableWidgetItem(str(partido.equipo2.puntos)))  # Puntos equipo2
-                
