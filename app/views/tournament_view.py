@@ -138,33 +138,36 @@ class TournamentView(QWidget):
             # Obtener la tabla del grupo seleccionado
             tabla_grupo = self.tablas_por_grupo.get(grupo_seleccionado)
 
-            if not tabla_grupo or tabla_grupo.rowCount() < 2:
+            if not tabla_grupo or tabla_grupo.rowCount() < 4:
                 QMessageBox.warning(self, "Grupo incompleto", "El grupo seleccionado no tiene suficientes equipos para simular una fecha.")
                 return
 
             # Obtener equipos del grupo seleccionado
             equipos_grupo = [tabla_grupo.item(fila, 0).text() for fila in range(tabla_grupo.rowCount())]
 
+            # Definir los emparejamientos de esta jornada según el patrón que has mencionado
+            if self.jornada_actual == 1:
+                partidos_jornada = [(equipos_grupo[0], equipos_grupo[1]), (equipos_grupo[2], equipos_grupo[3])]
+            elif self.jornada_actual == 2:
+                partidos_jornada = [(equipos_grupo[0], equipos_grupo[3]), (equipos_grupo[1], equipos_grupo[2])]
+            elif self.jornada_actual == 3:
+                partidos_jornada = [(equipos_grupo[0], equipos_grupo[2]), (equipos_grupo[1], equipos_grupo[3])]
+            else:
+                QMessageBox.warning(self, "Fin de las jornadas", "Se han simulado todas las jornadas.")
+                return
+
             resultados_jornada = []
 
-            # Jugar partidos entre equipos del mismo grupo
-            for i in range(len(equipos_grupo)):
-                for j in range(i+1, len(equipos_grupo)):
-                    equipo1_nombre = equipos_grupo[i]
-                    equipo2_nombre = equipos_grupo[j]
-
-                    equipo1 = self.controller.get_equipo_por_nombre(equipo1_nombre)
-                    equipo2 = self.controller.get_equipo_por_nombre(equipo2_nombre)
-
-                    partido = Match(equipo1, equipo2, criterio)
-                    partido.jugar_partido()
-
-                    # Guardar resultado del partido
-                    resultado_partido = f"{partido.goles_equipo1} - {partido.goles_equipo2}"
-                    resultados_jornada.append({'equipo1': equipo1_nombre, 'equipo2': equipo2_nombre, 'resultado': resultado_partido})
-
-                    # Actualizar la tabla con los resultados del partido
-                    self.actualizar_tabla_resultados(partido)
+            # Jugar los partidos de la jornada
+            for partido_info in partidos_jornada:
+                equipo1_nombre, equipo2_nombre = partido_info
+                equipo1 = self.controller.get_equipo_por_nombre(equipo1_nombre)
+                equipo2 = self.controller.get_equipo_por_nombre(equipo2_nombre)
+                partido = Match(equipo1, equipo2, criterio)
+                partido.jugar_partido()
+                resultado_partido = f"{partido.goles_equipo1} - {partido.goles_equipo2}"
+                resultados_jornada.append({'equipo1': equipo1_nombre, 'equipo2': equipo2_nombre, 'resultado': resultado_partido})
+                self.actualizar_tabla_resultados(partido)
 
             # Mostrar los resultados de la jornada en el QTextEdit
             self.mostrar_resultados_jornada(self.jornada_actual, resultados_jornada)
