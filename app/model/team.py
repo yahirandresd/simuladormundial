@@ -27,7 +27,7 @@ class Team:
 
     def guardar_datos_csv(self):
         # Nombre del archivo CSV
-        archivo_csv = "equipos.csv"
+        archivo_csv = "xyzRESERVA.csv"
 
         numero_precision = self.obtener_numero_precision()
 
